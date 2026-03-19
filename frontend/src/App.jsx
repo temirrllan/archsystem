@@ -51,13 +51,14 @@ export default function App() {
     WebApp.setBackgroundColor('#0F0F1A')
     const tgUser = WebApp.initDataUnsafe?.user
     if (tgUser) {
-      const proxyAvatarUrl = `/api/users/${tgUser.id}/avatar`
+      const API = import.meta.env.VITE_API_URL || '/api'
+      const proxyAvatarUrl = `${API}/users/${tgUser.id}/avatar`
       const user = {
         ...tgUser,
         photo_url: tgUser.photo_url || tgUser.photoUrl || proxyAvatarUrl,
       }
       setUser(user)
-      fetch('/api/users/register', {
+      fetch(`${API}/users/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
