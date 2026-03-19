@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs ls:*)",
+      "mcp__b6961573-884d-4db5-8342-d457ec6fea48__gcal_create_event",
+      "Bash(npm -v)",
+      "Bash(npm list:*)",
+      "Bash(npm install:*)",
+      "Bash(node create_presentation.js)",
+      "Bash(npm init:*)",
+      "Bash(pip install:*)",
+      "Bash(python scripts/office/soffice.py --headless --convert-to pdf \"D:\\\\Projects\\\\tgboteraka\\\\Physics_Bot_Presentation.pptx\")",
+      "Bash(python \"C:\\\\Users\\\\raiym\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\a25a2927-01aa-4945-9ad1-17a0f84a6489\\\\dda4090b-0931-48a7-9306-7ae7fe568e63\\\\skills\\\\pptx\\\\scripts\\\\office\\\\soffice.py\" --headless --convert-to pdf \"D:\\\\Projects\\\\tgboteraka\\\\Physics_Bot_Presentation.pptx\")",
+      "Bash(where soffice:*)",
+      "Bash(where libreoffice:*)",
+      "Bash(python -m markitdown \"D:\\\\Projects\\\\tgboteraka\\\\Physics_Bot_Presentation.pptx\")",
+      "Bash(python -c \":*)",
+      "Bash(chcp 65001)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

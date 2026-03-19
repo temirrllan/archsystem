@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<title>Physics Bot — UI Mockups</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a2e; font-family: 'Inter', sans-serif; padding: 40px; display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; }
+  .label { color: #a0aec0; font-size: 14px; text-align: center; margin-bottom: 8px; font-weight: 600; letter-spacing: 1px; }
+  .phone { width: 375px; height: 720px; background: #0F0F1A; border-radius: 32px; overflow: hidden; border: 3px solid #2D3748; position: relative; display: flex; flex-direction: column; }
+  .statusbar { height: 44px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #a0aec0; flex-shrink: 0; }
+  .topbar { height: 52px; display: flex; align-items: center; padding: 0 20px; flex-shrink: 0; }
+  .topbar .back { color: #6C63FF; font-size: 20px; margin-right: 12px; cursor: pointer; }
+  .topbar .title { color: #fff; font-size: 18px; font-weight: 700; }
+  .content { flex: 1; overflow-y: auto; padding: 0 20px 20px; }
+  .bottomnav { height: 64px; background: #1A1A2E; border-top: 1px solid #2D3748; display: flex; align-items: center; justify-content: space-around; flex-shrink: 0; }
+  .bottomnav .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10px; color: #718096; }
+  .bottomnav .nav-item.active { color: #6C63FF; }
+  .bottomnav .nav-icon { font-size: 20px; }
+  .card { background: #1A1A2E; border-radius: 16px; padding: 16px; margin-bottom: 12px; border: 1px solid #2D3748; }
+  .card-accent { border-left: 3px solid #6C63FF; }
+  .btn { padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 14px; text-align: center; cursor: pointer; display: inline-block; }
+  .btn-primary { background: #6C63FF; color: #fff; }
+  .btn-secondary { background: #1A1A2E; color: #6C63FF; border: 1px solid #6C63FF; }
+  .btn-full { width: 100%; display: block; }
+  .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+  .stat-row { display: flex; gap: 10px; margin-bottom: 12px; }
+  .stat-box { flex: 1; background: #1A1A2E; border-radius: 12px; padding: 12px; text-align: center; border: 1px solid #2D3748; }
+  .stat-num { font-size: 24px; font-weight: 800; color: #fff; }
+  .stat-label { font-size: 11px; color: #718096; margin-top: 4px; }
+  .topic-card { display: flex; align-items: center; gap: 14px; padding: 14px; background: #1A1A2E; border-radius: 14px; margin-bottom: 10px; border: 1px solid #2D3748; }
+  .topic-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .topic-info { flex: 1; }
+  .topic-title { color: #fff; font-size: 15px; font-weight: 600; }
+  .topic-desc { color: #718096; font-size: 12px; margin-top: 2px; }
+  .progress-bar { height: 6px; background: #2D3748; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; }
+  .problem-card { background: #1A1A2E; border-radius: 14px; padding: 16px; margin-bottom: 10px; border: 1px solid #2D3748; }
+  .problem-q { color: #fff; font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+  .formula { color: #A78BFA; font-family: 'Cambria Math', serif; font-size: 16px; text-align: center; padding: 8px; background: rgba(108,99,255,0.1); border-radius: 8px; margin: 8px 0; }
+  .chat-bubble { max-width: 80%; padding: 12px 16px; border-radius: 16px; margin-bottom: 10px; font-size: 13px; line-height: 1.5; }
+  .chat-user { background: #6C63FF; color: #fff; margin-left: auto; border-bottom-right-radius: 4px; }
+  .chat-ai { background: #1A1A2E; color: #e2e8f0; border: 1px solid #2D3748; border-bottom-left-radius: 4px; }
+  .chat-input { display: flex; gap: 8px; padding: 12px; background: #1A1A2E; border-top: 1px solid #2D3748; }
+  .chat-input input { flex: 1; background: #0F0F1A; border: 1px solid #2D3748; border-radius: 24px; padding: 10px 16px; color: #fff; font-size: 13px; outline: none; }
+  .chat-input .send-btn { width: 40px; height: 40px; background: #6C63FF; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; }
+  .rating-row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #1A1A2E; border-radius: 12px; margin-bottom: 8px; border: 1px solid #2D3748; }
+  .rating-pos { font-size: 16px; font-weight: 800; width: 28px; text-align: center; }
+  .rating-avatar { width: 36px; height: 36px; border-radius: 50%; background: #2D3748; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+  .rating-name { flex: 1; color: #fff; font-size: 14px; font-weight: 500; }
+  .rating-score { color: #6C63FF; font-weight: 700; font-size: 14px; }
+  .test-option { padding: 14px 16px; background: #1A1A2E; border-radius: 12px; margin-bottom: 8px; border: 2px solid #2D3748; color: #e2e8f0; font-size: 14px; cursor: pointer; }
+  .test-option.selected { border-color: #6C63FF; background: rgba(108,99,255,0.1); }
+  .test-progress { display: flex; gap: 4px; margin-bottom: 16px; }
+  .test-dot { flex: 1; height: 4px; border-radius: 2px; background: #2D3748; }
+  .test-dot.done { background: #6C63FF; }
+  .test-dot.current { background: #4ECDC4; }
+  .filter-row { display: flex; gap: 8px; margin-bottom: 14px; }
+  .filter-tag { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 500; color: #a0aec0; background: #1A1A2E; border: 1px solid #2D3748; }
+  .filter-tag.active { background: #6C63FF; color: #fff; border-color: #6C63FF; }
+  .welcome-card { background: linear-gradient(135deg, #6C63FF 0%, #A78BFA 100%); border-radius: 20px; padding: 24px; margin-bottom: 16px; }
+  .welcome-title { color: #fff; font-size: 20px; font-weight: 700; }
+  .welcome-sub { color: rgba(255,255,255,0.8); font-size: 13px; margin-top: 6px; }
+  .daily-card { background: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%); border-radius: 16px; padding: 16px; margin-bottom: 16px; }
+  .daily-title { font-weight: 700; font-size: 14px; color: #0F0F1A; }
+  .daily-desc { font-size: 12px; color: rgba(15,15,26,0.7); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1: HOME -->
+<div>
+<div class="label">HOME</div>
+<div class="phone">
+  <div class="statusbar">9:41</div>
+  <div class="content" style="padding-top:8px;">
+    <div class="welcome-card">
+      <div class="welcome-title">Salam, Student! 👋</div>
+      <div class="welcome-sub">Fizikany birge uyreneyik!</div>
+    </div>
+    <div class="daily-card">
+      <div class="daily-title">📌 Kundelikti tapsyrma</div>
+      <div class="daily-desc">Nyuton zandary boyynsha esep shesh</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num" style="color:#FF6B6B;">🔥 7</div>
+        <div class="stat-label">Streak</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:#4ECDC4;">45</div>
+        <div class="stat-label">Esepter</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:#FFE66D;">12</div>
+        <div class="stat-label">Testter</div>
+      </div>
+    </div>
+    <div style="color:#fff;font-size:16px;font-weight:700;margin:16px 0 10px;">Tez bastalу</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div class="card" style="text-align:center;padding:20px;"><div style="font-size:28px;">📘</div><div style="color:#fff;font-size:13px;margin-top:6px;font-weight:600;">Teoriya</div></div>
+      <div class="card" style="text-align:center;padding:20px;"><div style="font-size:28px;">🧮</div><div style="color:#fff;font-size:13px;margin-top:6px;font-weight:600;">Esepter</div></div>
+      <div class="card" style="text-align:center;padding:20px;"><div style="font-size:28px;">🧠</div><div style="color:#fff;font-size:13px;margin-top:6px;font-weight:600;">Test</div></div>
+      <div class="card" style="text-align:center;padding:20px;"><div style="font-size:28px;">🤖</div><div style="color:#fff;font-size:13px;margin-top:6px;font-weight:600;">AI Tyutor</div></div>
+    </div>
+  </div>
+  <div class="bottomnav">
+    <div class="nav-item active"><div class="nav-icon">🏠</div>Basty</div>
+    <div class="nav-item"><div class="nav-icon">📘</div>Teoriya</div>
+    <div class="nav-item"><div class="nav-icon">🧮</div>Esep</div>
+    <div class="nav-item"><div class="nav-icon">📊</div>Progress</div>
+    <div class="nav-item"><div class="nav-icon">🤖</div>AI</div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 2: THEORY -->
+<div>
+<div class="label">THEORY</div>
+<div class="phone">
+  <div class="statusbar">9:41</div>
+  <div class="topbar"><span class="back">←</span><span class="title">Teoriya</span></div>
+  <div class="content">
+    <div class="topic-card">
+      <div class="topic-icon" style="background:rgba(108,99,255,0.15);">⚡</div>
+      <div class="topic-info">
+        <div class="topic-title">Mexanika</div>
+        <div class="topic-desc">Nyuton zandary, qozgalys</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:75%;background:#6C63FF;"></div></div>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon" style="background:rgba(255,107,107,0.15);">🔥</div>
+      <div class="topic-info">
+        <div class="topic-title">Termodinamika</div>
+        <div class="topic-desc">Zhylу, temperatura, energiya</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:40%;background:#FF6B6B;"></div></div>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon" style="background:rgba(78,205,196,0.15);">🧲</div>
+      <div class="topic-info">
+        <div class="topic-title">Elektromagnetizm</div>
+        <div class="topic-desc">Tok, kedergi, magnit</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:20%;background:#4ECDC4;"></div></div>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon" style="background:rgba(255,230,109,0.15);">💡</div>
+      <div class="topic-info">
+        <div class="topic-title">Optika</div>
+        <div class="topic-desc">Zharyq, linzalar, synu</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:10%;background:#FFE66D;"></div></div>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon" style="background:rgba(167,139,250,0.15);">⚛️</div>
+      <div class="topic-info">
+        <div class="topic-title">Kvant fizikasy</div>
+        <div class="topic-desc">Foton, atom, energiya</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:5%;background:#A78BFA;"></div></div>
+      </div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-icon" style="background:rgba(255,107,107,0.15);">☢️</div>
+      <div class="topic-info">
+        <div class="topic-title">Yadrolyk fizika</div>
+        <div class="topic-desc">Radioaktivtilik, yadro</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:0%;background:#FF6B6B;"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="bottomnav">
+    <div class="nav-item"><div class="nav-icon">🏠</div>Basty</div>
+    <div class="nav-item active"><div class="nav-icon">📘</div>Teoriya</div>
+    <div class="nav-item"><div class="nav-icon">🧮</div>Esep</div>
+    <div class="nav-item"><div class="nav-icon">📊</div>Progress</div>
+    <div class="nav-item"><div class="nav-icon">🤖</div>AI</div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 3: PROBLEMS -->
+<div>
+<div class="label">PROBLEMS</div>
+<div class="phone">
+  <div class="statusbar">9:41</div>
+  <div class="topbar"><span class="back">←</span><span class="title">Esepter</span></div>
+  <div class="content">
+    <div class="filter-row">
+      <div class="filter-tag active">Barlygу</div>
+      <div class="filter-tag" style="color:#4ECDC4;border-color:#4ECDC4;">Jenil</div>
+      <div class="filter-tag" style="color:#FFE66D;border-color:#FFE66D;">Orta</div>
+      <div class="filter-tag" style="color:#FF6B6B;border-color:#FF6B6B;">Qiyn</div>
+    </div>
+    <div class="problem-card">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <span class="tag" style="background:rgba(78,205,196,0.15);color:#4ECDC4;">Jenil</span>
+        <span style="color:#718096;font-size:12px;">Mexanika</span>
+      </div>
+      <div class="problem-q">Massasy 2 kg dene 5 m/s^2 udeuimen qozgalady. Kush qashan?</div>
+      <div class="formula">F = m · a = 2 · 5 = 10 N</div>
+    </div>
+    <div class="problem-card">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <span class="tag" style="background:rgba(255,230,109,0.15);color:#FFE66D;">Orta</span>
+        <span style="color:#718096;font-size:12px;">Termodinamika</span>
+      </div>
+      <div class="problem-q">500 g sudy 20°C-dan 80°C-ga deyín qyzdyru ushin qansha energiya kerek?</div>
+      <div class="formula">Q = c · m · ΔT</div>
+    </div>
+    <div class="problem-card">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <span class="tag" style="background:rgba(255,107,107,0.15);color:#FF6B6B;">Qiyn</span>
+        <span style="color:#718096;font-size:12px;">Elektromagnetizm</span>
+      </div>
+      <div class="problem-q">Kedergi 10 Om, tok kushy 2 A. Quat qansha?</div>
+      <div class="formula">P = I² · R = 4 · 10 = 40 W</div>
+    </div>
+    <div class="problem-card">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+        <span class="tag" style="background:rgba(78,205,196,0.15);color:#4ECDC4;">Jenil</span>
+        <span style="color:#718096;font-size:12px;">Optika</span>
+      </div>
+      <div class="problem-q">Zharyqtyn zhyldamdygy vakuumda qansha?</div>
+      <div class="formula">c = 3 × 10⁸ m/s</div>
+    </div>
+  </div>
+  <div class="bottomnav">
+    <div class="nav-item"><div class="nav-icon">🏠</div>Basty</div>
+    <div class="nav-item"><div class="nav-icon">📘</div>Teoriya</div>
+    <div class="nav-item active"><div class="nav-icon">🧮</div>Esep</div>
+    <div class="nav-item"><div class="nav-icon">📊</div>Progress</div>
+    <div class="nav-item"><div class="nav-icon">🤖</div>AI</div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 4: TEST -->
+<div>
+<div class="label">TEST</div>
+<div class="phone">
+  <div class="statusbar">9:41</div>
+  <div class="topbar"><span class="back">←</span><span class="title">Test — 3/10</span></div>
+  <div class="content">
+    <div class="test-progress">
+      <div class="test-dot done"></div><div class="test-dot done"></div><div class="test-dot current"></div>
+      <div class="test-dot"></div><div class="test-dot"></div><div class="test-dot"></div>
+      <div class="test-dot"></div><div class="test-dot"></div><div class="test-dot"></div><div class="test-dot"></div>
+    </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div style="color:#718096;font-size:12px;margin-bottom:8px;">Suraq 3/10 • Mexanika</div>
+      <div style="color:#fff;font-size:16px;font-weight:600;line-height:1.5;">Nyutonnyng 2-shi zany boyynsha kush formulasy qalay?</div>
+      <div class="formula">F = ?</div>
+    </div>
+    <div class="test-option selected">A) F = m · a</div>
+    <div class="test-option">B) F = m · v</div>
+    <div class="test-option">C) F = m · g · h</div>
+    <div class="test-option">D) F = p · V</div>
+    <div style="margin-top:20px;">
+      <div class="btn btn-primary btn-full">Kelesi suraq →</div>
+    </div>
+  </div>
+  <div class="bottomnav">
+    <div class="nav-item"><div class="nav-icon">🏠</div>Basty</div>
+    <div class="nav-item"><div class="nav-icon">📘</div>Teoriya</div>
+    <div class="nav-item"><div class="nav-icon">🧮</div>Esep</div>
+    <div class="nav-item"><div class="nav-icon">📊</div>Progress</div>
+    <div class="nav-item"><div class="nav-icon">🤖</div>AI</div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 5: PROGRESS -->
+<div>
+<div class="label">PROGRESS</div>
+<div class="phone">
+  <div class="statusbar">9:41</div>
+  <div class="topbar"><span class="back">←</span><span class="title">Progress</span></div>
+  <div class="content">
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num" style="color:#6C63FF;">450</div><div class="stat-label">Zhalpу XP</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:#4ECDC4;">5</div><div class="stat-label">Level</div></div>
+    </div>
+    <div style="color:#fff;font-size:15px;font-weight:700;margin:12px 0 10px;">Taqyryptar boyynsha</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:#fff;font-size:13px;font-weight:600;">⚡ Mexanika</span><span style="color:#6C63FF;font-weight:700;">75%</span></div>
+      <div class="progress-bar" style="height:8px;"><div class="progress-fill" style="width:75%;background:#6C63FF;"></div></div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:#fff;font-size:13px;font-weight:600;">🔥 Termodinamika</span><span style="color:#FF6B6B;font-weight:700;">40%</span></div>
+      <div class="progress-bar" style="height:8px;"><div class="progress-fill" style="width:40%;background:#FF6B6B;"></div></div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:#fff;font-size:13px;font-weight:600;">🧲 Elektromagnetizm</span><span style="color:#4ECDC4;font-weight:700;">20%</span></div>
+      <div class="progress-bar" style="height:8px;"><div class="progress-fill" style="width:20%;background:#4ECDC4;"></div></div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:#fff;font-size:13px;font-weight:600;">💡 Optika</span><span style="color:#FFE66D;font-weight:700;">10%</span></div>
+      <div class="progress-bar" style="height:8px;"><div class="progress-fill" style="width:10%;background:#FFE66D;"></div></div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:#fff;font-size:13px;font-weight:600;">⚛️ Kvant fizikasy</span><span style="color:#A78BFA;font-weight:700;">5%</span></div>
+      <div class="progress-bar" style="height:8px;"><div class="progress-fill" style="width:5%;background:#A78BFA;"></div></div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:#fff;font-size:13px;font-weight:600;">☢️ Yadrolyk fizika</span><span style="color:#FF6B6B;font-weight:700;">0%</span></div>
+      <div class="progress-bar" style="height:8px;"><div class="progress-fill" style="width:0%;background:#FF6B6B;"></div></div>
+    </div>
+  </div>
+  <div class="bottomnav">
+    <div class="nav-item"><div class="nav-icon">🏠</div>Basty</div>
+    <div class="nav-item"><div class="nav-icon">📘</div>Teoriya</div>
+    <div class="nav-item"><div class="nav-icon">🧮</div>Esep</div>
+    <div class="nav-item active"><div class="nav-icon">📊</div>Progress</div>
+    <div class="nav-item"><div class="nav-icon">🤖</div>AI</div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 6: RATING -->
+<div>
+<div class="label">RATING</div>
+<div class="phone">
+  <div class="statusbar">9:41</div>
+  <div class="topbar"><span class="back">←</span><span class="title">Reyting 🏆</span></div>
+  <div class="content">
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="font-size:48px;">🏆</div>
+      <div style="color:#FFE66D;font-size:20px;font-weight:800;margin-top:4px;">Top 10</div>
+    </div>
+    <div class="rating-row" style="border:1px solid #FFE66D;">
+      <div class="rating-pos" style="color:#FFE66D;">1</div>
+      <div class="rating-avatar">🥇</div>
+      <div class="rating-name">Arman</div>
+      <div class="rating-score">1250 XP</div>
+    </div>
+    <div class="rating-row" style="border:1px solid #A0AEC0;">
+      <div class="rating-pos" style="color:#A0AEC0;">2</div>
+      <div class="rating-avatar">🥈</div>
+      <div class="rating-name">Aigerim</div>
+      <div class="rating-score">1100 XP</div>
+    </div>
+    <div class="rating-row" style="border:1px solid #CD7F32;">
+      <div class="rating-pos" style="color:#CD7F32;">3</div>
+      <div class="rating-avatar">🥉</div>
+      <div class="rating-name">Daulet</div>
+      <div class="rating-score">980 XP</div>
+    </div>
+    <div class="rating-row">
+      <div class="rating-pos" style="color:#718096;">4</div>
+      <div class="rating-avatar">👤</div>
+      <div class="rating-name">Nurzhan</div>
+      <div class="rating-score">870 XP</div>
+    </div>
+    <div class="rating-row">
+      <div class="rating-pos" style="color:#718096;">5</div>
+      <div class="rating-avatar">👤</div>
+      <div class="rating-name">Madina</div>
+      <div class="rating-score">750 XP</div>
+    </div>
+    <div class="rating-row" style="background:rgba(108,99,255,0.15);border:1px solid #6C63FF;">
+      <div class="rating-pos" style="color:#6C63FF;">6</div>
+      <div class="rating-avatar" style="background:#6C63FF;">😊</div>
+      <div class="rating-name" style="color:#6C63FF;font-weight:700;">Sen (Student)</div>
+      <div class="rating-score">450 XP</div>
+    </div>
+  </div>
+  <div class="bottomnav">
+    <div class="nav-item"><div class="nav-icon">🏠</div>Basty</div>
+    <div class="nav-item"><div class="nav-icon">📘</div>Teoriya</div>
+    <div class="nav-item"><div class="nav-icon">🧮</div>Esep</div>
+    <div class="nav-item"><div class="nav-icon">📊</div>Progress</div>
+    <div class="nav-item"><div class="nav-icon">🤖</div>AI</div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 7: ASK AI -->
+<div>
+<div class="label">ASK AI</div>
+<div class="phone">
+  <div class="statusbar">9:41</div>
+  <div class="topbar"><span class="back">←</span><span class="title">AI Tyutor 🤖</span></div>
+  <div class="content" style="display:flex;flex-direction:column;gap:10px;padding-bottom:0;">
+    <div class="chat-bubble chat-user">Nyutonnyng 2-shi zanyn tusindirshi</div>
+    <div class="chat-bubble chat-ai">
+      Nyutonnyng 2-shi zany — kush, massa men udeu arasyndagy baylanysty anyqtaydy:<br><br>
+      <div class="formula" style="margin:8px 0;">F = m · a</div>
+      Munda:<br>
+      • F — kush (Nyuton, N)<br>
+      • m — dene massasy (kg)<br>
+      • a — udeu (m/s²)<br><br>
+      Mysaly: massasy 5 kg dene 3 m/s² udeumen qozgalsa, kush:<br>
+      <div class="formula" style="margin:8px 0;">F = 5 · 3 = 15 N</div>
+    </div>
+    <div class="chat-bubble chat-user">Al gravitatsiya kushinin formulasy?</div>
+    <div class="chat-bubble chat-ai">
+      Gravitatsiya kushy formulasy:<br>
+      <div class="formula" style="margin:8px 0;">F = G · (m₁ · m₂) / r²</div>
+      G = 6.674 × 10⁻¹¹ N·m²/kg²
+    </div>
+  </div>
+  <div class="chat-input">
+    <input placeholder="Suraq qoyуngуz..." />
+    <div class="send-btn">↑</div>
+  </div>
+</div>
+</div>
+
+<!-- SCREEN 8: HELP -->
+<div>
+<div class="label">HELP</div>
+<div class="phone">
+  <div class="statusbar">9:41</div>
+  <div class="topbar"><span class="back">←</span><span class="title">Komek 💬</span></div>
+  <div class="content">
+    <div class="card card-accent" style="margin-bottom:12px;">
+      <div style="color:#6C63FF;font-size:14px;font-weight:700;margin-bottom:6px;">📘 Teoriya</div>
+      <div style="color:#a0aec0;font-size:13px;line-height:1.5;">6 fizika taqyryby: mexanika, termodinamika, elektromagnetizm, optika, kvant, yadrolyk. Ar taqyrypta formula men tusiniktor bar.</div>
+    </div>
+    <div class="card card-accent" style="margin-bottom:12px;">
+      <div style="color:#4ECDC4;font-size:14px;font-weight:700;margin-bottom:6px;">🧮 Esepter</div>
+      <div style="color:#a0aec0;font-size:13px;line-height:1.5;">Ush qiyndyq dengeyiinen esepter sheshuge bolady: jenil, orta, qiyn. Zhauapty tekseruge bolady.</div>
+    </div>
+    <div class="card card-accent" style="margin-bottom:12px;">
+      <div style="color:#FFE66D;font-size:14px;font-weight:700;margin-bottom:6px;">🧠 Test</div>
+      <div style="color:#a0aec0;font-size:13px;line-height:1.5;">10 suraqtyq test. Random suraqtar. Natijesin korguge bolady.</div>
+    </div>
+    <div class="card card-accent" style="margin-bottom:12px;">
+      <div style="color:#A78BFA;font-size:14px;font-weight:700;margin-bottom:6px;">🤖 AI Tyutor</div>
+      <div style="color:#a0aec0;font-size:13px;line-height:1.5;">Fizika suraqtaryna qazaq tilinde zhauap beredi. LaTeX formulalaryn qoldaydy.</div>
+    </div>
+    <div class="card card-accent" style="margin-bottom:12px;">
+      <div style="color:#FF6B6B;font-size:14px;font-weight:700;margin-bottom:6px;">🏆 Reyting</div>
+      <div style="color:#a0aec0;font-size:13px;line-height:1.5;">Top-10 liderboard. XP zhynap, dengeyingizdi koteringe.</div>
+    </div>
+    <div class="card card-accent">
+      <div style="color:#fff;font-size:14px;font-weight:700;margin-bottom:6px;">🔔 Streak</div>
+      <div style="color:#a0aec0;font-size:13px;line-height:1.5;">Kundelikti kirip, streak zhynangyz. Bonus XP aluуga bolady!</div>
+    </div>
+  </div>
+  <div class="bottomnav">
+    <div class="nav-item"><div class="nav-icon">🏠</div>Basty</div>
+    <div class="nav-item"><div class="nav-icon">📘</div>Teoriya</div>
+    <div class="nav-item"><div class="nav-icon">🧮</div>Esep</div>
+    <div class="nav-item"><div class="nav-icon">📊</div>Progress</div>
+    <div class="nav-item"><div class="nav-icon">🤖</div>AI</div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
