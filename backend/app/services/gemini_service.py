@@ -24,13 +24,16 @@ SYSTEM_PROMPT = """Сен — Physics Bot қолданбасының физик�
 
 
 def _get_client() -> AsyncOpenAI:
-    api_key = os.getenv("GROQ_API_KEY")
-    if not api_key:
-        raise ValueError("GROQ_API_KEY орнатылмаған")
-    return AsyncOpenAI(
-        api_key=api_key,
-        base_url="https://api.groq.com/openai/v1",
-    )
+    # Support both OpenAI and Groq API keys
+    openai_key = os.getenv("OPENAI_API_KEY")
+    groq_key = os.getenv("GROQ_API_KEY")
+
+    if openai_key:
+        return AsyncOpenAI(api_key=openai_key)
+    elif groq_key:
+        return AsyncOpenAI(api_key=groq_key, base_url="https://api.groq.com/openai/v1")
+    else:
+        raise ValueError("OPENAI_API_KEY немесе GROQ_API_KEY орнатылмаған")
 
 
 async def get_ai_answer(question: str, history: List[Dict] = None, student_context: str = None) -> str:
@@ -47,14 +50,20 @@ async def get_ai_answer(question: str, history: List[Dict] = None, student_conte
 
     try:
         client = _get_client()
+        # Pick model based on which API key is available
+        if os.getenv("OPENAI_API_KEY"):
+            model = "gpt-4o-mini"
+        else:
+            model = "llama-3.3-70b-versatile"
+
         response = await client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=model,
             messages=messages,
             max_tokens=1000,
             temperature=0.3,
         )
         return response.choices[0].message.content
     except ValueError:
-        return "Groq API кілті конфигурацияланбаған. .env файлына GROQ_API_KEY қосыңыз."
+        return "API кілті конфигурацияланбаған. OPENAI_API_KEY немесе GROQ_API_KEY қосыңыз."
     except Exception as e:
         return f"AI жауап бере алмады. Қайтадан көріңіз. ({str(e)[:100]})"
