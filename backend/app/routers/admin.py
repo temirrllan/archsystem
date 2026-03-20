@@ -104,14 +104,15 @@ async def get_admin_stats(
         .limit(10)
         .all()
     )
-    recent_registrations = [
+    recent_activity = [
         {
             "id": user.id,
             "telegram_id": user.telegram_id,
-            "name": user.full_name,
+            "first_name": user.first_name,
+            "username": user.username,
             "level": user.level,
             "score": user.score,
-            "created_at": user.created_at,
+            "created_at": str(user.created_at)[:10] if user.created_at else "-",
         }
         for user in recent_users
     ]
@@ -121,9 +122,9 @@ async def get_admin_stats(
         total_problems=total_problems,
         total_tests=total_tests,
         active_today=active_today,
-        new_users_per_day=new_users_per_day,
-        problems_solved_per_topic=problems_solved_per_topic,
-        recent_registrations=recent_registrations,
+        new_users_daily=new_users_per_day,
+        problems_by_topic=problems_solved_per_topic,
+        recent_activity=recent_activity,
     )
 
 

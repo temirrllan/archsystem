@@ -35,9 +35,9 @@ class DashboardStatResponse(BaseModel):
     total_problems: int
     total_tests: int
     active_today: int
-    new_users_per_day: list[dict]
-    problems_solved_per_topic: list[dict]
-    recent_registrations: list[dict]
+    new_users_daily: list[dict]
+    problems_by_topic: list[dict]
+    recent_activity: list[dict]
 
 
 class ProblemAdminBase(BaseModel):
